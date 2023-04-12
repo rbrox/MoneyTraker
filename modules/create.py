@@ -5,19 +5,19 @@ import numpy as np
 def main():
     # Define color codes for text color using ANSI escape sequences
     data = initialise(param())
-    create_df(data)
-
+    df = create_df(data)
+    #later_info(df)
 
 def param()-> dict:
     
     c = color()
     print(c['COLOR_GREEN'] + 'Param module executed' + c['COLOR_RESET'])
     param = {
-        'Transaction_ID_range': [1, 100],
+        'Transaction_ID_range': [1, 1000],
         'Account_Balance_range': [1000, 1000000],
         'Transaction_Type': ['Debit', 'Credit'],
         'Transaction_Amount_range': [100, 1000000],
-        'Account_Number_range': [1, 9],
+        'Account_Number_range': [1, 10001],
     }
     
     return param
@@ -34,6 +34,7 @@ def initialise(param: dict)-> dict:
         'Account Balance': [],
         'Transaction Type': [],
         'Transaction Amount': [],
+        'Average Transaction Amount': [],
         'Account Number': [],
     }
     
@@ -47,7 +48,6 @@ def initialise(param: dict)-> dict:
     random_indices = np.random.choice(len(numbers), size=(acc_num_range[1] - acc_num_range[0]), replace=False)
     acc_num = numbers[random_indices]
         
-    print(acc_num)
     
     i = 0
     
@@ -57,6 +57,7 @@ def initialise(param: dict)-> dict:
         acc = acc_num[i]
         bal = np.random.randint(acc_bal_range[0], acc_bal_range[1])
         amt = np.random.randint(10, bal * 0.15)
+        avg_amt = np.random.randint(10, bal * 0.10)
         
         if (bal - amt) < 0:
             amt = bal * 0.75
@@ -66,6 +67,7 @@ def initialise(param: dict)-> dict:
         data['Transaction_ID'].append(id)
         data['Transaction Amount'].append(amt)
         data['Transaction Type'].append(rand)
+        data['Average Transaction Amount'].append(avg_amt)
         data['Account Balance'].append(bal)
         data['Account Number'].append(acc)
         
@@ -86,6 +88,20 @@ def create_df(data: dict)-> pd.DataFrame:
     print(df)
     print(c['COLOR_RESET'])
     return df
+
+
+def later_info(df: pd.DataFrame)-> pd.DataFrame:
+    c = color()
+    print(c['COLOR_GREEN'] + 'Later_info module executed' + c['COLOR_RESET'])
+    
+    
+    df['isFraud'] = 'Unknown'
+    print(c['COLOR_BLUE'])
+    print(df)
+    print(c['COLOR_RESET'])
+    return df
+
+
 
 # Perform data cleaning and preprocessing if necessary
 # For example, fill missing values with a default value
