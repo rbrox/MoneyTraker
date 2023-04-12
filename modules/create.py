@@ -3,10 +3,16 @@ import numpy as np
 
 
 def main():
+    # Define color codes for text color using ANSI escape sequences
+    
+
     data = initialise(param())
 
+
 def param()-> dict:
-    print('Param module executed')
+    
+    c = color()
+    print(c['COLOR_GREEN'] + 'Param module executed' + c['COLOR_RESET'])
     param = {
         'Transaction_ID_range': [1, 100],
         'Account_Balance_range': [1000, 1000000],
@@ -17,7 +23,9 @@ def param()-> dict:
 
 
 def initialise(param: dict)-> dict:
-    print('Initialise module executed')
+   
+    c = color()
+    print(c['COLOR_GREEN'] + 'Initialise module executed' + c['COLOR_RESET'])
 
     #Define the data using a dictionary
     data = {
@@ -39,7 +47,6 @@ def initialise(param: dict)-> dict:
         data['Account Balance'].append(bal)
         data['Account Number'].append(acc)
 
-    print(data)
     
     
 # Create a DataFrame from the dictionary
@@ -59,6 +66,21 @@ def initialise(param: dict)-> dict:
 
 # Export the data to a CSV file
 #df.to_csv('data.csv', index=False)
+
+
+    # Define color codes for text color using ANSI escape sequences
+
+def color():
+    color = {
+        'COLOR_RED' : '\033[31m',
+        'COLOR_GREEN' : '\033[32m',
+        'COLOR_YELLOW' : '\033[33m',
+        'COLOR_BLUE' : '\033[34m',
+        'COLOR_MAGENTA' : '\033[35m',
+        'COLOR_RESET' : '\033[0m',
+    }
+    
+    return color
 
 
 if __name__ == '__main__':
