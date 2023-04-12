@@ -1,3 +1,6 @@
+
+# The problem with this is we arent able to string the transactions
+
 import pandas as pd
 import numpy as np
 
@@ -42,19 +45,13 @@ def initialise(param: dict)-> dict:
     acc_bal_range = param['Account_Balance_range']
     acc_num_range = param['Account_Number_range']
     
-    numbers = np.array(range(acc_num_range[0], acc_num_range[1]))
-
-    random_indices = np.random.choice(len(numbers), size=(acc_num_range[1] - acc_num_range[0]), replace=False)
-    acc_num = numbers[random_indices]
-        
-    print(acc_num)
     
-    i = 0
-    
-    for id in range(acc_num_range[0], acc_num_range[1]):
+    for id in range(id_range[0], id_range[1]):
+        
+        acc = np.random.randint(acc_num_range[0], acc_num_range[1])
         
         
-        acc = acc_num[i]
+        
         bal = np.random.randint(acc_bal_range[0], acc_bal_range[1])
         amt = np.random.randint(10, bal * 0.15)
         
@@ -68,8 +65,6 @@ def initialise(param: dict)-> dict:
         data['Transaction Type'].append(rand)
         data['Account Balance'].append(bal)
         data['Account Number'].append(acc)
-        
-        i += 1
 
     
     return data 
